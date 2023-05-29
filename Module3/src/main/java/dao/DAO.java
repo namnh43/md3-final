@@ -14,7 +14,7 @@ public class DAO implements IDAO<Employee> {
     private static String SELECT_ALL_EMPLOYEE_SQL="select nhanvien.id,nhanvien.name,email,address,phonenum,salary,d.name as department from nhanvien join department d on d.id = nhanvien.department_id;";
     private static String SELECT_DEPARTMENT_SQL = "SELECT name FROM department where id=?";
     private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO nhanvien (name,email,address,phonenum,salary,department_id) VALUES (?,?,?,?,?,?);";
-    private static String SELECT_EMPLOYEE_SQL="SELECT * FROM users WHERE id = ?";
+    private static String SELECT_EMPLOYEE_SQL="SELECT * FROM nhanvien WHERE id = ?";
     private static String DELETE_EMPLOYEE_SQL="DELETE FROM nhanvien where id=?";
     private static String QUERY_EMPLOYEE="SELECT FROM nhanvien where name like ?";
     private static String UPDATE_EMPLOYEE_SQL="UPDATE nhanvien SET name=?,email=?,address=?,phonenum=?,salary=?,department_id=? where id=?";
