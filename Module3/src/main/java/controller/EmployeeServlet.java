@@ -28,13 +28,27 @@ public class EmployeeServlet extends HttpServlet {
                 createEmployee(request,response);
                 break;
             case "edit":
-                editEmployee(request,response);
+                showEditEmployee(request,response);
                 break;
             case "delete":
 //                deleteUser(request,response);
                 break;
             default:
                 showAll(request,response);
+        }
+    }
+
+    private void showEditEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        //Get user from database
+        Employee employee = dao.selectItem(id);
+        request.setAttribute("employee",employee);
+        try {
+            request.getRequestDispatcher("/employee/edit.jsp").forward(request,response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -49,7 +63,20 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void editEmployee(HttpServletRequest request, HttpServletResponse response) {
-        
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String phoneNum = request.getParameter("phonenum");
+        Long salary = Long.valueOf(request.getParameter("salary"));
+        String department = "RnD";
+        Employee employee = new Employee(id,name,email,address,phoneNum,salary,department);
+        dao.update(employee);
+        try {
+            response.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void showAll(HttpServletRequest request, HttpServletResponse response) {
@@ -77,11 +104,14 @@ public class EmployeeServlet extends HttpServlet {
                 editEmployee(request,response);
                 break;
             case "delete":
-//                deleteUser(request,response);
+                deleteEmployee(request,response);
                 break;
             default:
                 showAll(request,response);
         }
+    }
+
+    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
     }
 
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response) {

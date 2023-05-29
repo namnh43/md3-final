@@ -14,9 +14,10 @@ public class DAO implements IDAO<Employee> {
     private static String SELECT_ALL_EMPLOYEE_SQL="select nhanvien.id,nhanvien.name,email,address,phonenum,salary,d.name as department from nhanvien join department d on d.id = nhanvien.department_id;";
     private static String SELECT_DEPARTMENT_SQL = "SELECT name FROM department where id=?";
     private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO nhanvien (name,email,address,phonenum,salary,department_id) VALUES (?,?,?,?,?,?);";
-    private static String SELECT_USER_SQL="SELECT * FROM users WHERE id = ?";
+    private static String SELECT_EMPLOYEE_SQL="SELECT * FROM users WHERE id = ?";
     private static String DELETE_USER_SQL="DELETE FROM users where id=?";
-    private static String UPDATE_USER_SQL="UPDATE users SET name=?,email=?,country=? where id=?";
+    private static String UPDATE_EMPLOYEE_SQL="UPDATE nhanvien SET name=?,email=?,address=?,phonenum=?,salary=?,department_id=? where id=?";
+//            "UPDATE nhanvien SET name=?,email=?,country=? where id=?";
     Connection connection = null;
 
     public DAO() {
@@ -50,7 +51,29 @@ public class DAO implements IDAO<Employee> {
 
     @Override
     public Employee selectItem(int id) {
-        return null;
+//        System.out.println(SELECT_EMPLOYEE_SQL);
+        Employee user = null;
+        if (connection != null) {
+            System.out.println(connection);
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EMPLOYEE_SQL)) {
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    int uid = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    String email = resultSet.getString("email");
+                    String country = resultSet.getString("address");
+                    String phoneNum = resultSet.getString("phonenum");
+                    long salary = Long.parseLong(resultSet.getString("salary"));
+                    String department = String.valueOf(resultSet.getInt("department_id"));
+                    user = new Employee(uid,name,email,country,phoneNum,salary,department);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+//                printSQLException(e);
+            }
+        }
+        return user;
     }
 
     @Override
@@ -84,6 +107,23 @@ public class DAO implements IDAO<Employee> {
 
     @Override
     public boolean update(Employee element) {
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMPLOYEE_SQL)) {
+                preparedStatement.setString(1,element.getName());
+                preparedStatement.setString(2,element.getEmail());
+                preparedStatement.setString(3,element.getAddress());
+                preparedStatement.setString(4,element.getPhoneNum());
+                preparedStatement.setLong(5,element.getSalary());
+                preparedStatement.setInt(6,1);
+
+                preparedStatement.setInt(7,element.getId());
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } ;
+
+        }
         return false;
     }
 }

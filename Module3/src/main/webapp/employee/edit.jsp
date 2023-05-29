@@ -21,25 +21,31 @@ To change this template use File | Settings | File Templates.
 </head>
 <body class="overflow-hidden">
 <h1>Add new employee</h1>
-<label for="name">Name</label><br>
-<input name="name" id="name" placeholder="enter name">
-<label>Email</label>
-<input name="email" id="email" placeholder="enter email">
-<label>Address</label>
-<input name="address" id="address" placeholder="enter address">
-<label>PhoneNumber</label>
-<input name="phonenum" id="phonenum" placeholder="enter phone number">
-<label>Salary</label>
-<input name="salary" id="salaray" placeholder="enter salary">
-<label>Department</label>
-<select id="cars">
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="vw">VW</option>
-    <option value="audi" selected>Audi</option>
-</select>
-<input type="submit" value="Submit">
-<!--<jsp:include page="play-bar.jsp"/>-->
+<form method="post">
+    <c:if test="${employee != null}">
+        <label for="name">Name</label><br>
+        <input type="hidden" id="name" name="id" value="<c:out value='${employee.id}' />"/>
+        <input type= id="name" name="id" value="<c:out value='${employee.name}'/>"/>
+        <label>Email</label>
+        <input name="email" id="email" value="<c:out value='${employee.email}'/>" placeholder="enter email">
+        <label>Address</label>
+        <input name="address" id="address" value="<c:out value='${employee.address}'/>" placeholder="enter address">
+        <label>PhoneNumber</label>
+        <input name="phonenum" id="phonenum" value="<c:out value='${employee.phonenum}'/>" placeholder="enter phone number">
+        <label>Salary</label>
+        <input name="salary" id="salaray" value="<c:out value='${employee.salary}'/>" placeholder="enter salary">
+        <label>Department</label>
+        <select id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="vw">VW</option>
+            <option value="audi" selected>Audi</option>
+        </select>
+    </c:if>
+    <input type="submit" value="Submit">
+</form>
+
+
 </body>
 </html>
 
