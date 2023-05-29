@@ -13,7 +13,8 @@
 <body>
 <br/>
 <form action="/home">
-  <input name="action" value="search" id="search">
+  <input type="hidden" name="action" value="search" >
+  <input name="name" id="search">
   <button type="submit" class="btn btn-primary">Search</button></a>
 </form>
 <table class="table table-striped table-hover">
