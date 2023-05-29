@@ -14,7 +14,7 @@
 <br/>
 <form action="/home">
   <input name="search" id="search">
-  <button type="button" class="btn btn-primary">Search</button></a>
+  <button type="submit" class="btn btn-primary">Search</button></a>
 </form>
 <table class="table table-striped table-hover">
   <thead>
