@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "EmployeeServlet", value = "/home")
 public class EmployeeServlet extends HttpServlet {
@@ -30,11 +31,23 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 showEditEmployee(request,response);
                 break;
-            case "delete":
-//                deleteUser(request,response);
-                break;
+            case "search":
+                searchEmployee(request,response);
             default:
                 showAll(request,response);
+        }
+    }
+
+    private void searchEmployee(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("search");
+        List<Employee> list = dao.search(name);
+        request.setAttribute("list",list);
+        try {
+            request.getRequestDispatcher("employee/employee.jsp").forward(request,response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
