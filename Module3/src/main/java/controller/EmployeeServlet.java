@@ -31,6 +31,9 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 showEditEmployee(request,response);
                 break;
+            case "delete":
+                deleteEmployee(request,response);
+                break;
             case "search":
                 searchEmployee(request,response);
             default:
@@ -116,9 +119,7 @@ public class EmployeeServlet extends HttpServlet {
             case "edit":
                 editEmployee(request,response);
                 break;
-            case "delete":
-                deleteEmployee(request,response);
-                break;
+
             default:
                 showAll(request,response);
         }
