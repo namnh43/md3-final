@@ -112,6 +112,13 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        dao.delete(id);
+        try {
+            response.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void insertEmployee(HttpServletRequest request, HttpServletResponse response) {
