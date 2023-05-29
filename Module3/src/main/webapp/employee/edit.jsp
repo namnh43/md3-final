@@ -31,7 +31,7 @@ To change this template use File | Settings | File Templates.
         <label>Address</label>
         <input name="address" id="address" value="<c:out value='${employee.address}'/>" placeholder="enter address">
         <label>PhoneNumber</label>
-        <input name="phonenum" id="phonenum" value="<c:out value='${employee.phonenum}'/>" placeholder="enter phone number">
+        <input name="phonenum" id="phonenum" value="<c:out value='${employee.getPhoneNum()}'/>" placeholder="enter phone number">
         <label>Salary</label>
         <input name="salary" id="salaray" value="<c:out value='${employee.salary}'/>" placeholder="enter salary">
         <label>Department</label>
