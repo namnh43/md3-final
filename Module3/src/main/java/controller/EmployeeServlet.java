@@ -44,6 +44,7 @@ public class EmployeeServlet extends HttpServlet {
     private void searchEmployee(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("search");
         List<Employee> list = dao.search(name);
+        System.out.println(list);
         request.setAttribute("list",list);
         try {
             request.getRequestDispatcher("employee/employee.jsp").forward(request,response);
