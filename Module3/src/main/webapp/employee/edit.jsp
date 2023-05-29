@@ -25,21 +25,20 @@ To change this template use File | Settings | File Templates.
     <c:if test="${employee != null}">
         <label for="name">Name</label><br>
         <input type="hidden" id="name" name="id" value="<c:out value='${employee.id}' />"/>
-        <input type= id="name" name="id" value="<c:out value='${employee.name}'/>"/>
-        <label>Email</label>
-        <input name="email" id="email" value="<c:out value='${employee.email}'/>" placeholder="enter email">
-        <label>Address</label>
-        <input name="address" id="address" value="<c:out value='${employee.address}'/>" placeholder="enter address">
-        <label>PhoneNumber</label>
-        <input name="phonenum" id="phonenum" value="<c:out value='${employee.getPhoneNum()}'/>" placeholder="enter phone number">
-        <label>Salary</label>
-        <input name="salary" id="salaray" value="<c:out value='${employee.salary}'/>" placeholder="enter salary">
-        <label>Department</label>
-        <select id="cars">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="vw">VW</option>
-            <option value="audi" selected>Audi</option>
+        <input type= id="name" name="id" value="<c:out value='${employee.name}'/>"/><br>
+        <label>Email</label><br>
+        <input name="email" id="email" value="<c:out value='${employee.email}'/>" placeholder="enter email"><br>
+        <label>Address</label><br>
+        <input name="address" id="address" value="<c:out value='${employee.address}'/>" placeholder="enter address"><br>
+        <label>PhoneNumber</label><br>
+        <input name="phonenum" id="phonenum" value="<c:out value='${employee.getPhoneNum()}'/>" placeholder="enter phone number"><br>
+        <label>Salary</label><br>
+        <input name="salary" id="salaray" value="<c:out value='${employee.salary}'/>" placeholder="enter salary"><br>
+        <label>Department</label><br>
+        <select id="department">
+            <c:forEach var="department" items="${departments}">
+                <option value="${department}">${department}</option>
+            </c:forEach>
         </select>
     </c:if>
     <input type="submit" value="Submit">

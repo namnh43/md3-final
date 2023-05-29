@@ -35,11 +35,10 @@ To change this template use File | Settings | File Templates.
     <input name="salary" id="salaray" placeholder="enter salary">
     <br>
     <label>Department</label><br>
-    <select id="cars">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="vw">VW</option>
-        <option value="audi" selected>Audi</option>
+    <select id="department">
+        <c:forEach var="department" items="${departments}">
+            <option value="${department}">${department}</option>
+        </c:forEach>
     </select>
     <br>
     <input type="submit" value="Submit">

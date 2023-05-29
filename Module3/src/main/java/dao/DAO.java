@@ -12,11 +12,11 @@ public class DAO implements IDAO<Employee> {
     private final String jdbcPassword="admin";
     //jdbc sql command
     private static String SELECT_ALL_EMPLOYEE_SQL="select nhanvien.id,nhanvien.name,email,address,phonenum,salary,d.name as department from nhanvien join department d on d.id = nhanvien.department_id;";
-    private static String SELECT_DEPARTMENT_SQL = "SELECT name FROM department where id=?";
+    private static String SELECT_DEPARTMENT_SQL = "SELECT name FROM department";
     private static final String INSERT_EMPLOYEE_SQL = "INSERT INTO nhanvien (name,email,address,phonenum,salary,department_id) VALUES (?,?,?,?,?,?);";
     private static String SELECT_EMPLOYEE_SQL="SELECT * FROM nhanvien WHERE id = ?";
     private static String DELETE_EMPLOYEE_SQL="DELETE FROM nhanvien where id=?";
-    private static String QUERY_EMPLOYEE="SELECT FROM nhanvien where name like ?";
+    private static String QUERY_EMPLOYEE="SELECT * FROM nhanvien where name like ?";
     private static String UPDATE_EMPLOYEE_SQL="UPDATE nhanvien SET name=?,email=?,address=?,phonenum=?,salary=?,department_id=? where id=?";
 //            "UPDATE nhanvien SET name=?,email=?,country=? where id=?";
     Connection connection = null;
@@ -142,8 +142,8 @@ public class DAO implements IDAO<Employee> {
         List<Employee> list = new ArrayList<>();
         if (connection != null) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_EMPLOYEE)) {
-                preparedStatement.setString(1,"%"+name+"%");
-                ResultSet resultSet = preparedStatement.executeQuery(QUERY_EMPLOYEE);
+                preparedStatement.setString(1,name);
+                ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     String e_name = resultSet.getString("name");
@@ -151,11 +151,28 @@ public class DAO implements IDAO<Employee> {
                     String address = resultSet.getString("address");
                     String phoneNum = resultSet.getString("phonenum");
                     long salary = resultSet.getLong("salary");
-                    String department = resultSet.getString("department");
+//                    String department = resultSet.getString("department");
 
-                    list.add(new Employee(id,e_name,email,address,phoneNum,salary,department));
+                    list.add(new Employee(id,e_name,email,address,phoneNum,salary,"RnD"));
                 }
 
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } ;
+
+        }
+        return list;
+    }
+
+    public List<String> getDepartments(){
+        List<String> list = new ArrayList<>();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_DEPARTMENT_SQL)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    list.add(name);
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } ;

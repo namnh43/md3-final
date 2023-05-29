@@ -42,8 +42,8 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void searchEmployee(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("search");
-        List<Employee> list = dao.search(name);
+        String name = request.getParameter("name");
+        List<Employee> list = dao.search("%"+name+"%");
         System.out.println(list);
         request.setAttribute("list",list);
         try {
@@ -60,6 +60,8 @@ public class EmployeeServlet extends HttpServlet {
         //Get user from database
         Employee employee = dao.selectItem(id);
         request.setAttribute("employee",employee);
+        List<String> departments = dao.getDepartments();
+        request.setAttribute("departments",departments);
         try {
             request.getRequestDispatcher("/employee/edit.jsp").forward(request,response);
         } catch (ServletException e) {
@@ -71,6 +73,8 @@ public class EmployeeServlet extends HttpServlet {
 
     private void createEmployee(HttpServletRequest request, HttpServletResponse response) {
         try {
+            List<String> departments = dao.getDepartments();
+            request.setAttribute("departments",departments);
             request.getRequestDispatcher("employee/create.jsp").forward(request,response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
