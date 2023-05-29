@@ -43,7 +43,7 @@
         <a href="/home?action=edit&id=${employee.id}"><button type="button" class="btn btn-primary">Edit</button></a>
       </td>
       <td>
-        <a class="delete_btn" href="/home?action=delete&id=${employee.id}"><button type="button" class="btn btn-primary">Delete</button></a>
+        <a class="delete_btn" href="/home?action=delete&id=${employee.id}"><button type="button" class="btn btn-primary" onclick="return confirm('Are you sure?')">Delete</button></a>
       </td>
     </tr>
   </c:forEach>
