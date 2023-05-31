@@ -25,7 +25,7 @@ To change this template use File | Settings | File Templates.
     <c:if test="${employee != null}">
         <label for="name">Name</label><br>
         <input type="hidden" id="name" name="id" value="<c:out value='${employee.id}' />"/>
-        <input type= id="name" name="id" value="<c:out value='${employee.name}'/>"/><br>
+        <input name="name" value="<c:out value='${employee.name}'/>"/><br>
         <label>Email</label><br>
         <input name="email" id="email" value="<c:out value='${employee.email}'/>" placeholder="enter email"><br>
         <label>Address</label><br>
